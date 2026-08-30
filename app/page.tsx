@@ -148,10 +148,10 @@ export default function Home() {
             <div className="relative">
 
               {/* Halo principal */}
-              <div className="absolute -inset-8 rounded-full bg-cyan-400/10 blur-3xl animate-pulse" />
+              <div className="absolute -inset-2 rounded-full bg-cyan-400/10 blur-xl sm:-inset-4 sm:blur-2xl md:-inset-8 md:blur-3xl md:animate-pulse" />
 
-              {/* Petit halo secondaire */}
-              <div className="absolute -inset-3 rounded-full border border-cyan-400/10" />
+              {/* Cercle décoratif */}
+              <div className="absolute -inset-1 rounded-full border border-cyan-400/15 sm:-inset-2 md:-inset-3" />
 
               {/* Cercle extérieur */}
               <div className="relative h-64 w-64 overflow-hidden rounded-full border border-cyan-400/30 shadow-[0_0_80px_rgba(34,211,238,0.15)] transition duration-500 hover:scale-[1.02] hover:border-cyan-400/60 hover:shadow-[0_0_100px_rgba(34,211,238,0.25)] sm:h-80 sm:w-80 md:h-[420px] md:w-[420px]">
