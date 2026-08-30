@@ -145,36 +145,74 @@ export default function Home() {
           {/* ================= PHOTO DE PROFIL ================= */}
           <div className="flex justify-center md:justify-end">
 
-            <div className="relative">
+            <div className="relative flex flex-col items-center">
 
-              {/* Halo principal */}
-              <div className="absolute -inset-2 rounded-full bg-cyan-400/10 blur-xl sm:-inset-4 sm:blur-2xl md:-inset-8 md:blur-3xl md:animate-pulse" />
+              {/* Halo lumineux — discret sur mobile */}
+              <div className="absolute inset-2 rounded-full bg-cyan-400/10 blur-2xl md:-inset-8 md:blur-3xl md:animate-pulse" />
 
-              {/* Cercle décoratif */}
-              <div className="absolute -inset-1 rounded-full border border-cyan-400/15 sm:-inset-2 md:-inset-3" />
+              {/* Cercle décoratif supplémentaire — uniquement sur ordinateur */}
+              <div className="absolute -inset-3 hidden rounded-full border border-cyan-400/10 md:block" />
 
-              {/* Cercle extérieur */}
-              <div className="relative h-64 w-64 overflow-hidden rounded-full border border-cyan-400/30 shadow-[0_0_80px_rgba(34,211,238,0.15)] transition duration-500 hover:scale-[1.02] hover:border-cyan-400/60 hover:shadow-[0_0_100px_rgba(34,211,238,0.25)] sm:h-80 sm:w-80 md:h-[420px] md:w-[420px]">
+              {/* PHOTO */}
+              <div
+                className="
+        relative
+        h-64 w-64
+        overflow-hidden
+        rounded-full
+        border border-cyan-400/30
+        shadow-[0_0_45px_rgba(34,211,238,0.12)]
+        transition duration-500
+        hover:border-cyan-400/60
 
+        sm:h-72 sm:w-72
+
+        md:h-[420px] md:w-[420px]
+        md:shadow-[0_0_80px_rgba(34,211,238,0.15)]
+        md:hover:scale-[1.02]
+        md:hover:shadow-[0_0_100px_rgba(34,211,238,0.25)]
+      "
+              >
                 <Image
                   src="/images/profile/hardy.jpg"
                   alt="Hardy Gates - Ingénieur électronique"
                   fill
                   priority
+                  sizes="(max-width: 640px) 256px, (max-width: 768px) 288px, 420px"
                   className="object-cover"
                 />
-
               </div>
 
-              {/* BADGE SOUS LA PHOTO */}
-              <div className="mt-5 flex justify-center md:absolute md:-bottom-5 md:left-1/2 md:mt-0 md:-translate-x-1/2">
+              {/* BADGE */}
+              <div
+                className="
+        relative z-10
+        mt-4
+        max-w-[92vw]
+        rounded-full
+        border border-white/10
+        bg-black/90
+        px-4 py-2
+        text-center
+        text-[10px]
+        font-medium
+        leading-5
+        text-cyan-400
+        shadow-xl
+        backdrop-blur-xl
 
-                <div className="max-w-[90vw] rounded-full border border-white/10 bg-black/80 px-4 py-2 text-center text-[11px] font-medium leading-5 text-cyan-400 shadow-xl backdrop-blur-xl sm:px-5 sm:text-xs md:whitespace-nowrap">
+        sm:text-xs
 
-                  Électronique • Systèmes embarqués • Internet des objets
-
-                </div>
-
+        md:absolute
+        md:-bottom-5
+        md:left-1/2
+        md:mt-0
+        md:-translate-x-1/2
+        md:whitespace-nowrap
+        md:px-5
+      "
+              >
+                Électronique • Systèmes embarqués • Internet des objets
               </div>
 
             </div>
