@@ -166,9 +166,15 @@ export default function Home() {
 
               </div>
 
-              {/* ================= BADGE ================= */}
-              <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/10 bg-black/80 px-5 py-2 text-xs font-medium text-cyan-400 shadow-xl backdrop-blur-xl">
-                Electronics • Embedded Systems • IoT
+              {/* BADGE SOUS LA PHOTO */}
+              <div className="mt-5 flex justify-center md:absolute md:-bottom-5 md:left-1/2 md:mt-0 md:-translate-x-1/2">
+
+                <div className="max-w-[90vw] rounded-full border border-white/10 bg-black/80 px-4 py-2 text-center text-[11px] font-medium leading-5 text-cyan-400 shadow-xl backdrop-blur-xl sm:px-5 sm:text-xs md:whitespace-nowrap">
+
+                  Électronique • Systèmes embarqués • Internet des objets
+
+                </div>
+
               </div>
 
             </div>
