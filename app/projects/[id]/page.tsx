@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { projects } from "@/data/projects";
+import { getProjectBySlug } from "@/lib/supabase/projects";
 
 type ProjectPageProps = {
     params: Promise<{
@@ -11,11 +11,10 @@ type ProjectPageProps = {
 export default async function ProjectPage({
     params,
 }: ProjectPageProps) {
+
     const { id } = await params;
 
-    const project = projects.find(
-        (project) => project.id === id
-    );
+    const project = await getProjectBySlug(id);
 
     if (!project) {
         notFound();
@@ -144,8 +143,8 @@ export default async function ProjectPage({
                                     src={image}
                                     alt={`${project.title} - image ${index + 1}`}
                                     className={`w-full object-cover transition duration-700 group-hover:scale-105 ${index === 0
-                                        ? "aspect-[16/8]"
-                                        : "aspect-[16/10]"
+                                            ? "aspect-[16/8]"
+                                            : "aspect-[16/10]"
                                         }`}
                                 />
 
@@ -157,6 +156,7 @@ export default async function ProjectPage({
 
                 </section>
             )}
+
 
             {/* VIDEOS */}
             {project.videos && project.videos.length > 0 && (
@@ -204,6 +204,7 @@ export default async function ProjectPage({
                 </section>
             )}
 
+
             {/* CONTENT */}
             <section className="mx-auto max-w-7xl px-6 py-20">
 
@@ -246,7 +247,7 @@ export default async function ProjectPage({
                                 </h3>
 
                                 <p className="mt-3 leading-7 text-gray-400">
-                                    Nous détaillerons ici l'architecture, le fonctionnement
+                                    Nous détaillerons ici l&apos;architecture, le fonctionnement
                                     électronique et la logique du système.
                                 </p>
                             </div>

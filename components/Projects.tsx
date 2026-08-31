@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { projects } from "@/data/projects";
+import { getProjects } from "@/lib/supabase/projects";
 
-export default function Projects() {
+export default async function Projects() {
+    const projects = await getProjects();
+
     return (
         <section
             id="projets"
