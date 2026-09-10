@@ -1,23 +1,54 @@
-import type { MetadataRoute } from "next";
-import { projects } from "@/data/projects";
+import type {
+  MetadataRoute,
+} from "next";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+import {
+  getPublishedProjectSlugs,
+} from "@/lib/supabase/projects";
+
+
+export default async function sitemap():
+  Promise<MetadataRoute.Sitemap> {
+
   const baseUrl =
     "https://hardy-gates-portfolio.vercel.app";
 
-  const projectPages = projects.map((project) => ({
-    url: `${baseUrl}/projects/${project.id}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
+
+  const projectSlugs =
+    await getPublishedProjectSlugs();
+
+
+  const projectPages:
+    MetadataRoute.Sitemap =
+    projectSlugs.map(
+      (slug) => ({
+        url:
+          `${baseUrl}/projects/${slug}`,
+
+        lastModified:
+          new Date(),
+
+        changeFrequency:
+          "monthly",
+
+        priority:
+          0.8,
+      })
+    );
+
 
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
+
+      lastModified:
+        new Date(),
+
+      changeFrequency:
+        "monthly",
+
+      priority:
+        1,
     },
 
     ...projectPages,

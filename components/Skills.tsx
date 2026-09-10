@@ -1,133 +1,38 @@
 "use client";
 
 import { useState } from "react";
+import type {
+    SkillCategoryWithSkills,
+} from "@/lib/content/skills";
 
 
-const skillCategories = {
-    "Électronique": [
-        {
-            name: "Électronique analogique",
-            level: "Avancé",
-            percentage: 85,
-        },
-        {
-            name: "Électronique numérique",
-            level: "Avancé",
-            percentage: 85,
-        },
-        {
-            name: "Électronique de puissance",
-            level: "Intermédiaire",
-            percentage: 70,
-        },
-        {
-            name: "Conception de circuits",
-            level: "Intermédiaire",
-            percentage: 75,
-        },
-    ],
 
-    "Embedded Systems": [
-        {
-            name: "Arduino",
-            level: "Avancé",
-            percentage: 90,
-        },
-        {
-            name: "ESP32",
-            level: "Avancé",
-            percentage: 90,
-        },
-        {
-            name: "Microcontrôleurs",
-            level: "Avancé",
-            percentage: 85,
-        },
-        {
-            name: "Capteurs & actionneurs",
-            level: "Avancé",
-            percentage: 85,
-        },
-    ],
 
-    IoT: [
-        {
-            name: "Wi-Fi / Communication",
-            level: "Avancé",
-            percentage: 85,
-        },
-        {
-            name: "MQTT",
-            level: "Intermédiaire",
-            percentage: 70,
-        },
-        {
-            name: "Acquisition de données",
-            level: "Avancé",
-            percentage: 85,
-        },
-        {
-            name: "Systèmes connectés",
-            level: "Avancé",
-            percentage: 80,
-        },
-    ],
 
-    Automatisation: [
-        {
-            name: "Automatisme",
-            level: "Intermédiaire",
-            percentage: 70,
-        },
-        {
-            name: "Commande & contrôle",
-            level: "Intermédiaire",
-            percentage: 70,
-        },
-        {
-            name: "Systèmes industriels",
-            level: "Intermédiaire",
-            percentage: 65,
-        },
-        {
-            name: "Instrumentation",
-            level: "Intermédiaire",
-            percentage: 70,
-        },
-    ],
+export default function Skills({
+    categories,
+}: {
+    categories:
+    SkillCategoryWithSkills[];
+}) {
+    const [activeCategoryId, setActiveCategoryId] =
+        useState<string>(
+            categories[0]?.id ?? ""
+        );
 
-    "Outils & Logiciels": [
-        {
-            name: "Proteus",
-            level: "Avancé",
-            percentage: 90,
-        },
-        {
-            name: "KiCad",
-            level: "Intermédiaire",
-            percentage: 75,
-        },
-        {
-            name: "Arduino IDE",
-            level: "Avancé",
-            percentage: 90,
-        },
-        {
-            name: "VS Code",
-            level: "Avancé",
-            percentage: 85,
-        },
-    ],
-};
 
-type Category = keyof typeof skillCategories;
+    const activeCategory =
+        categories.find(
+            (category) =>
+                category.id === activeCategoryId
+        ) ?? categories[0];
 
-export default function Skills() {
-    const [activeCategory, setActiveCategory] =
-        useState<Category>("Électronique");
 
-    const skills = skillCategories[activeCategory];
-
+    const skills =
+        activeCategory?.skills ?? [];
+    if (categories.length === 0) {
+        return null;
+    }
     return (
         <section
             id="competences"
@@ -161,19 +66,22 @@ export default function Skills() {
                 {/* CATEGORIES */}
                 <div className="mt-12 flex flex-wrap gap-3">
 
-                    {Object.keys(skillCategories).map((category) => (
+                    {categories.map((category) => (
 
                         <button
-                            key={category}
+                            key={category.id}
+                            type="button"
                             onClick={() =>
-                                setActiveCategory(category as Category)
+                                setActiveCategoryId(
+                                    category.id
+                                )
                             }
-                            className={`rounded-full px-5 py-3 text-sm font-medium transition ${activeCategory === category
+                            className={`rounded-full px-5 py-3 text-sm font-medium transition ${activeCategory?.id === category.id
                                 ? "bg-cyan-400 text-black"
                                 : "border border-white/10 bg-white/[0.02] text-gray-400 hover:border-cyan-400/40 hover:text-white"
                                 }`}
                         >
-                            {category}
+                            {category.name}
                         </button>
 
                     ))}
@@ -187,40 +95,62 @@ export default function Skills() {
                     {skills.map((skill) => (
 
                         <div
-                            key={skill.name}
+                            key={skill.id}
                             className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/30"
                         >
 
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center justify-between gap-4">
 
                                 <div>
+
                                     <h3 className="font-semibold text-white">
                                         {skill.name}
                                     </h3>
 
-                                    <p className="mt-1 text-sm text-gray-500">
-                                        {skill.level}
-                                    </p>
+
+                                    {skill.level && (
+
+                                        <p className="mt-1 text-sm text-gray-500">
+                                            {skill.level}
+                                        </p>
+
+                                    )}
+
                                 </div>
 
-                                <span className="text-sm font-semibold text-cyan-400">
-                                    {skill.percentage}%
-                                </span>
+
+                                {skill.percentage !== null && (
+
+                                    <span className="text-sm font-semibold text-cyan-400">
+                                        {skill.percentage}%
+                                    </span>
+
+                                )}
 
                             </div>
 
 
                             {/* BARRE */}
-                            <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-white/10">
+                            {skill.percentage !== null && (
 
-                                <div
-                                    className="h-full rounded-full bg-cyan-400 transition-all duration-700"
-                                    style={{
-                                        width: `${skill.percentage}%`,
-                                    }}
-                                />
+                                <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-white/10">
 
-                            </div>
+                                    <div
+                                        className="h-full rounded-full bg-cyan-400 transition-all duration-700"
+                                        style={{
+                                            width: `${Math.max(
+                                                0,
+                                                Math.min(
+                                                    skill.percentage,
+                                                    100
+                                                )
+                                            )}%`,
+                                        }}
+                                    />
+
+                                </div>
+
+                            )}
 
                         </div>
 

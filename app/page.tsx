@@ -4,7 +4,43 @@ import Projects from "@/components/Projects";
 import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 
-export default function Home() {
+import {
+  getPublicExperiences,
+} from "@/lib/content/experiences";
+
+import {
+  getHeroContent,
+} from "@/lib/content/hero";
+
+import {
+  getAboutContent,
+} from "@/lib/content/about";
+
+import {
+  getPublicSkills,
+} from "@/lib/content/skills";
+
+import {
+  getContactSettings,
+  getGlobalSettings,
+} from "@/lib/content/site-settings";
+
+export default async function Home() {
+  const [
+    hero,
+    about,
+    skillCategories,
+    experiences,
+    contactSettings,
+    globalSettings,
+  ] = await Promise.all([
+    getHeroContent(),
+    getAboutContent(),
+    getPublicSkills(),
+    getPublicExperiences(),
+    getContactSettings(),
+    getGlobalSettings(),
+  ]);
   return (
     <main className="min-h-screen bg-[#05070a] text-white">
 
@@ -70,52 +106,47 @@ export default function Home() {
           <div className="animate-[fadeInUp_0.8s_ease-out]">
 
             <p className="mb-5 text-sm font-medium uppercase tracking-[0.3em] text-cyan-400">
-              Portfolio • Engineering • Technology
+              {hero.eyebrow}
             </p>
 
             <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-7xl">
-              Ingénieur
+              {hero.titleLine1}
               <br />
               <span className="text-cyan-400">
-                Électronique
+                {hero.titleAccent}
               </span>
             </h1>
             <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">
-              Compétences
+              {hero.sectionLabel}
             </p>
 
             <h2 className="mt-3 text-4xl font-bold md:text-5xl">
-              Ce que je
+              {hero.masteryLine1}
               <br />
               <span className="text-cyan-400">
-                maîtrise.
+                {hero.masteryAccent}
               </span>
             </h2>
 
             <p className="mt-6 max-w-xl text-lg leading-8 text-gray-400">
-              Je conçois et développe des systèmes électroniques intelligents,
-              des systèmes embarqués et des solutions IoT orientées vers des
-              applications concrètes.
+              {hero.description}
             </p>
 
             {/* ================= DOMAINES ================= */}
             <div className="mt-7 flex flex-wrap gap-3">
 
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-300 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:text-cyan-400">
-                Embedded Systems
-              </span>
+              {hero.badges.map(
+                (badge) => (
 
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-300 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:text-cyan-400">
-                IoT
-              </span>
+                  <span
+                    key={badge}
+                    className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-300 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:text-cyan-400"
+                  >
+                    {badge}
+                  </span>
 
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-300 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:text-cyan-400">
-                Automatisation
-              </span>
-
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-300 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:text-cyan-400">
-                Power Electronics
-              </span>
+                )
+              )}
 
             </div>
 
@@ -126,7 +157,7 @@ export default function Home() {
                 href="#projets"
                 className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-7 py-3 font-semibold text-black transition-all duration-300 hover:-translate-y-1 hover:bg-cyan-300 hover:shadow-lg hover:shadow-cyan-400/20 active:translate-y-0"
               >
-                Voir mes projets →
+                {hero.primaryButtonLabel} →
               </a>
 
               <a
@@ -134,7 +165,7 @@ export default function Home() {
                 download
                 className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-400/10 hover:text-cyan-400 hover:shadow-lg hover:shadow-cyan-400/10 active:translate-y-0"
               >
-                Télécharger mon CV
+                {hero.secondaryButtonLabel}
               </a>
 
             </div>
@@ -212,7 +243,34 @@ export default function Home() {
         md:px-5
       "
               >
-                Électronique • Systèmes embarqués • Internet des objets
+                {hero.profileBadge && (
+                  <div className="relative z-10
+        mt-4
+        max-w-[92vw]
+        rounded-full
+        border border-white/10
+        bg-black/90
+        px-4 py-2
+        text-center
+        text-[10px]
+        font-medium
+        leading-5
+        text-cyan-400
+        shadow-xl
+        backdrop-blur-xl
+
+        sm:text-xs
+
+        md:absolute
+        md:-bottom-5
+        md:left-1/2
+        md:mt-0
+        md:-translate-x-1/2
+        md:whitespace-nowrap
+        md:px-5">
+                    {hero.profileBadge}
+                  </div>
+                )}
               </div>
 
             </div>
@@ -235,14 +293,14 @@ export default function Home() {
           <div className="max-w-3xl">
 
             <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">
-              À propos de moi
+              {about.eyebrow}
             </p>
 
             <h2 className="mt-3 text-4xl font-bold md:text-5xl">
-              Construire. Comprendre.
+              {about.titleLine1} {about.titleLine2}
               <br />
               <span className="text-cyan-400">
-                Innover.
+                {about.titleAccent}
               </span>
             </h2>
 
@@ -256,24 +314,25 @@ export default function Home() {
             <div>
 
               <p className="text-lg leading-8 text-gray-300">
-                Je suis étudiant en ingénierie électronique, avec un intérêt
-                particulier pour les systèmes embarqués, l'IoT, l'automatisation
-                et l'électronique de puissance.
+                {about.description}
               </p>
 
-              <p className="mt-6 leading-8 text-gray-400">
-                Ma démarche ne se limite pas aux enseignements académiques.
-                J'aime transformer une idée en prototype concret, expérimenter
-                avec différents composants, programmer des systèmes et comprendre
-                chaque étape qui permet de passer du concept à une solution
-                fonctionnelle.
-              </p>
 
-              <p className="mt-6 leading-8 text-gray-400">
-                À travers mes projets, je cherche à développer une approche
-                d'ingénieur basée sur la conception, l'expérimentation, la
-                résolution de problèmes et l'amélioration continue.
-              </p>
+              {about.secondaryDescription && (
+
+                <p className="mt-6 leading-8 text-gray-400">
+                  {about.secondaryDescription}
+                </p>
+
+              )}
+
+              {about.thirdDescription && (
+
+                <p className="mt-6 leading-8 text-gray-400">
+                  {about.thirdDescription}
+                </p>
+
+              )}
 
             </div>
 
@@ -379,34 +438,47 @@ export default function Home() {
         </div>
       </section>
 
-      <Skills />
+      <Skills
+        categories={skillCategories}
+      />
 
 
       {/* PROJETS - PLACEHOLDER POUR L'INSTANT */}
       <Projects />
-      <Experience />
-      <Contact />
+      <Experience
+        experiences={experiences}
+      />
+      <Contact settings={contactSettings} />
 
       {/* FOOTER */}
       <footer
-        id="contact"
         className="border-t border-white/10 px-6 py-12"
       >
 
         <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 md:flex-row">
 
           <div>
+
             <div className="text-xl font-bold">
-              HG<span className="text-cyan-400">.</span>
+
+              {globalSettings.brand}
+
+              <span className="text-cyan-400">
+                .
+              </span>
+
             </div>
 
+
             <p className="mt-2 text-sm text-gray-500">
-              Electronics • Embedded Systems • IoT • Automation
+              {globalSettings.tagline}
             </p>
+
           </div>
 
+
           <p className="text-sm text-gray-600">
-            © 2026 — Portfolio personnel
+            {globalSettings.footerCopyright}
           </p>
 
         </div>

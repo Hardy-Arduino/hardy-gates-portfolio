@@ -1,6 +1,47 @@
-import type { Project } from "@/data/projects";
 import { createClient } from "@/lib/supabase/server";
+export type Project = {
+  // =========================
+  // IDENTITÉ
+  // =========================
+  id: string;
+  title: string;
 
+  // =========================
+  // DESCRIPTION
+  // =========================
+  shortDescription: string;
+  description: string;
+
+  // =========================
+  // INFORMATIONS
+  // =========================
+  category: string;
+  year: string;
+  status: string;
+
+  // =========================
+  // TECHNOLOGIES
+  // =========================
+  technologies: string[];
+
+  // =========================
+  // MISE EN AVANT
+  // =========================
+  featured?: boolean;
+
+  // =========================
+  // MÉDIAS
+  // =========================
+  image?: string;
+  gallery?: string[];
+  videos?: string[];
+
+  // =========================
+  // LIENS EXTERNES
+  // =========================
+  github?: string;
+  demo?: string;
+};
 type ProjectMediaRow = {
   media_type: "image" | "video";
   url: string;
@@ -145,4 +186,35 @@ export async function getProjectBySlug(
   }
 
   return mapProject(data as ProjectRow);
+}
+
+export async function getPublishedProjectSlugs():
+  Promise<string[]> {
+
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("projects")
+    .select("slug")
+    .eq("published", true)
+    .order("display_order", {
+      ascending: true,
+    });
+
+  if (error) {
+    console.error(
+      "Supabase sitemap projects error:",
+      error
+    );
+
+    throw new Error(
+      "Impossible de récupérer les projets pour le sitemap."
+    );
+  }
+
+  return (
+    (data ?? []) as {
+      slug: string;
+    }[]
+  ).map((project) => project.slug);
 }

@@ -70,10 +70,6 @@ hardy-gates-portfolio/
 │   ├── Projects.tsx
 │   └── Skills.tsx
 │
-├── data/
-│   ├── experience.ts
-│   ├── project-template.ts
-│   └── projects.ts
 │
 └── public/
     ├── documents/

@@ -1,6 +1,41 @@
-import { experiences } from "@/data/experience";
+import type {
+    PortfolioExperience,
+} from "@/lib/content/experiences";
 
-export default function Experience() {
+function getExperienceTypeLabel(
+    type: string
+) {
+
+    switch (type) {
+
+        case "competition":
+            return "Compétition";
+
+        case "responsibility":
+            return "Responsabilité";
+
+        case "project":
+            return "Projet";
+
+        case "event":
+            return "Événement";
+
+        case "certification":
+            return "Certification";
+
+        default:
+            return "Expérience";
+    }
+}
+
+export default function Experience({
+    experiences,
+}: {
+    experiences: PortfolioExperience[];
+}) {
+    if (experiences.length === 0) {
+        return null;
+    }
     return (
         <section
             id="experience"
@@ -66,27 +101,31 @@ export default function Experience() {
                                         <div>
 
                                             <span className="text-xs uppercase tracking-[0.2em] text-cyan-400">
-                                                {item.type === "competition"
-                                                    ? "Compétition"
-                                                    : item.type === "certification"
-                                                        ? "Certification"
-                                                        : "Expérience"}
+                                                {getExperienceTypeLabel(item.type)}
                                             </span>
 
                                             <h3 className="mt-2 text-xl font-semibold text-white md:text-2xl">
                                                 {item.title}
                                             </h3>
 
-                                            <p className="mt-1 text-sm text-gray-500">
-                                                {item.organization}
-                                            </p>
+                                            {item.organization && (
+
+                                                <p className="mt-1 text-sm text-gray-500">
+                                                    {item.organization}
+                                                </p>
+
+                                            )}
 
                                         </div>
 
 
-                                        <span className="shrink-0 text-sm text-gray-500">
-                                            {item.date}
-                                        </span>
+                                        {item.date_label && (
+
+                                            <span className="shrink-0 text-sm text-gray-500">
+                                                {item.date_label}
+                                            </span>
+
+                                        )}
 
                                     </div>
 
@@ -98,7 +137,7 @@ export default function Experience() {
 
 
                                     {/* HIGHLIGHTS */}
-                                    {item.highlights && item.highlights.length > 0 && (
+                                    {item.highlights.length > 0 && (
 
                                         <div className="mt-6 flex flex-wrap gap-2">
 

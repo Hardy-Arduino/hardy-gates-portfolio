@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProjectBySlug } from "@/lib/supabase/projects";
@@ -7,6 +8,92 @@ type ProjectPageProps = {
         id: string;
     }>;
 };
+
+export async function generateMetadata({
+    params,
+}: ProjectPageProps): Promise<Metadata> {
+
+    const { id } = await params;
+
+    const project =
+        await getProjectBySlug(id);
+
+
+    if (!project) {
+        return {
+            title: "Projet introuvable",
+
+            robots: {
+                index: false,
+                follow: false,
+            },
+        };
+    }
+
+
+    const canonical =
+        `/projects/${project.id}`;
+
+    const description =
+        project.shortDescription ||
+        project.description;
+
+    const image =
+        project.image ||
+        "/images/profile/hardy.jpg";
+
+
+    return {
+        title: project.title,
+
+        description,
+
+        alternates: {
+            canonical,
+        },
+
+        openGraph: {
+            title:
+                `${project.title} | Hardy Gates`,
+
+            description,
+
+            url: canonical,
+
+            siteName:
+                "Portfolio Hardy Gates",
+
+            locale: "fr_FR",
+
+            type: "website",
+
+            images: [
+                {
+                    url: image,
+                    alt: project.title,
+                },
+            ],
+        },
+
+        twitter: {
+            card: "summary_large_image",
+
+            title:
+                `${project.title} | Hardy Gates`,
+
+            description,
+
+            images: [
+                image,
+            ],
+        },
+
+        robots: {
+            index: true,
+            follow: true,
+        },
+    };
+}
 
 export default async function ProjectPage({
     params,
@@ -143,8 +230,8 @@ export default async function ProjectPage({
                                     src={image}
                                     alt={`${project.title} - image ${index + 1}`}
                                     className={`w-full object-cover transition duration-700 group-hover:scale-105 ${index === 0
-                                            ? "aspect-[16/8]"
-                                            : "aspect-[16/10]"
+                                        ? "aspect-[16/8]"
+                                        : "aspect-[16/10]"
                                         }`}
                                 />
 
