@@ -1,8 +1,10 @@
 import Image from "next/image";
+
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
+import ThemeToggle from "@/components/ThemeToggle";
 
 import {
   getPublicExperiences,
@@ -25,7 +27,9 @@ import {
   getGlobalSettings,
 } from "@/lib/content/site-settings";
 
+
 export default async function Home() {
+
   const [
     hero,
     about,
@@ -41,129 +45,345 @@ export default async function Home() {
     getContactSettings(),
     getGlobalSettings(),
   ]);
-  return (
-    <main className="min-h-screen bg-[#05070a] text-white">
 
-      {/* NAVBAR */}
-      <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#05070a]/80 backdrop-blur-xl">
+
+  return (
+    <main
+      className="
+        min-h-screen
+        bg-[var(--portfolio-bg)]
+        text-[var(--portfolio-text)]
+        transition-colors
+        duration-300
+      "
+    >
+
+      {/* =====================================================
+          NAVBAR
+          ===================================================== */}
+      <nav
+        className="
+          fixed top-0 z-50 w-full
+          border-b
+          border-[var(--portfolio-border)]
+          bg-[var(--portfolio-nav-bg)]
+          backdrop-blur-xl
+          transition-colors
+          duration-300
+        "
+      >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
 
+          {/* LOGO */}
           <div className="text-xl font-bold tracking-wider">
-            HG<span className="text-cyan-400">.</span>
+            HG
+            <span className="text-[var(--portfolio-accent)]">
+              .
+            </span>
           </div>
 
-          <div className="hidden items-center gap-8 text-sm text-gray-300 md:flex">
-            <a href="#accueil" className="transition hover:text-cyan-400">
+
+          {/* NAVIGATION DESKTOP */}
+          <div className="hidden items-center gap-8 text-sm text-[var(--portfolio-text-secondary)] md:flex">
+
+            <a
+              href="#accueil"
+              className="transition hover:text-[var(--portfolio-accent)]"
+            >
               Accueil
             </a>
 
-            <a href="#apropos" className="transition hover:text-cyan-400">
+            <a
+              href="#apropos"
+              className="transition hover:text-[var(--portfolio-accent)]"
+            >
               À propos
             </a>
 
-            <a href="#competences" className="transition hover:text-cyan-400">
+            <a
+              href="#competences"
+              className="transition hover:text-[var(--portfolio-accent)]"
+            >
               Compétences
             </a>
 
-            <a href="#projets" className="transition hover:text-cyan-400">
+            <a
+              href="#projets"
+              className="transition hover:text-[var(--portfolio-accent)]"
+            >
               Projets
             </a>
 
-            <a href="#contact" className="transition hover:text-cyan-400">
+            <a
+              href="#contact"
+              className="transition hover:text-[var(--portfolio-accent)]"
+            >
               Contact
             </a>
 
           </div>
 
-          <a
-            href="#contact"
-            className="rounded-full border border-cyan-400/40 px-5 py-2 text-sm transition hover:bg-cyan-400 hover:text-black"
-          >
-            Me contacter
-          </a>
+
+          {/* ACTIONS */}
+          <div className="flex items-center gap-2 sm:gap-3">
+
+            <ThemeToggle />
+
+            <a
+              href="#contact"
+              className="
+                rounded-full
+                border
+                border-cyan-400/40
+                px-4 py-2
+                text-sm
+                transition
+                hover:bg-[var(--portfolio-accent)]
+                hover:text-[var(--portfolio-accent-text)]
+                sm:px-5
+              "
+            >
+              Me contacter
+            </a>
+
+          </div>
 
         </div>
       </nav>
 
 
-      {/* HERO */}
+      {/* =====================================================
+          HERO
+          ===================================================== */}
       <section
         id="accueil"
-        className="relative flex min-h-screen items-center overflow-hidden px-6 pt-24"
+        className="
+          relative
+          flex
+          min-h-screen
+          items-center
+          overflow-hidden
+          px-6
+          pt-24
+        "
       >
-        {/* ================= EFFETS LUMINEUX ================= */}
-        <div className="pointer-events-none absolute left-[10%] top-[15%] h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
 
-        <div className="pointer-events-none absolute right-[10%] top-[25%] h-80 w-80 rounded-full bg-blue-600/10 blur-3xl" />
+        {/* EFFETS LUMINEUX */}
+        <div
+          className="
+            pointer-events-none
+            absolute
+            left-[10%]
+            top-[15%]
+            h-72 w-72
+            rounded-full
+            bg-cyan-500/10
+            blur-3xl
+          "
+        />
 
-        {/* Grille très discrète */}
-        <div className="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:linear-gradient(rgba(255,255,255,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.5)_1px,transparent_1px)] [background-size:50px_50px]" />
+        <div
+          className="
+            pointer-events-none
+            absolute
+            right-[10%]
+            top-[25%]
+            h-80 w-80
+            rounded-full
+            bg-blue-600/10
+            blur-3xl
+          "
+        />
 
-        {/* ================= CONTENU ================= */}
-        <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-16 md:grid-cols-2">
 
-          {/* ================= TEXTE ================= */}
+        {/* GRILLE */}
+        <div
+          className="
+            portfolio-grid
+            pointer-events-none
+            absolute
+            inset-0
+          "
+        />
+
+
+        {/* CONTENU */}
+        <div
+          className="
+            relative z-10
+            mx-auto
+            grid
+            w-full
+            max-w-7xl
+            items-center
+            gap-16
+            md:grid-cols-2
+          "
+        >
+
+          {/* =================================================
+              TEXTE HERO
+              ================================================= */}
           <div className="animate-[fadeInUp_0.8s_ease-out]">
 
-            <p className="mb-5 text-sm font-medium uppercase tracking-[0.3em] text-cyan-400">
+            <p
+              className="
+                mb-5
+                text-sm
+                font-medium
+                uppercase
+                tracking-[0.3em]
+                text-[var(--portfolio-accent)]
+              "
+            >
               {hero.eyebrow}
             </p>
 
-            <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-7xl">
+
+            <h1
+              className="
+                text-4xl
+                font-bold
+                leading-tight
+                tracking-tight
+                sm:text-5xl
+                md:text-7xl
+              "
+            >
               {hero.titleLine1}
+
               <br />
-              <span className="text-cyan-400">
+
+              <span className="text-[var(--portfolio-accent)]">
                 {hero.titleAccent}
               </span>
             </h1>
-            <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">
+
+
+            <p
+              className="
+                text-sm
+                uppercase
+                tracking-[0.3em]
+                text-[var(--portfolio-accent)]
+              "
+            >
               {hero.sectionLabel}
             </p>
 
+
             <h2 className="mt-3 text-4xl font-bold md:text-5xl">
+
               {hero.masteryLine1}
+
               <br />
-              <span className="text-cyan-400">
+
+              <span className="text-[var(--portfolio-accent)]">
                 {hero.masteryAccent}
               </span>
+
             </h2>
 
-            <p className="mt-6 max-w-xl text-lg leading-8 text-gray-400">
+
+            <p
+              className="
+                mt-6
+                max-w-xl
+                text-lg
+                leading-8
+                text-[var(--portfolio-text-secondary)]
+              "
+            >
               {hero.description}
             </p>
 
-            {/* ================= DOMAINES ================= */}
+
+            {/* DOMAINES */}
             <div className="mt-7 flex flex-wrap gap-3">
 
-              {hero.badges.map(
-                (badge) => (
+              {hero.badges.map((badge) => (
 
-                  <span
-                    key={badge}
-                    className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-300 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:text-cyan-400"
-                  >
-                    {badge}
-                  </span>
+                <span
+                  key={badge}
+                  className="
+                    rounded-full
+                    border
+                    border-[var(--portfolio-border)]
+                    bg-[var(--portfolio-surface)]
+                    px-4 py-2
+                    text-sm
+                    text-[var(--portfolio-text-secondary)]
+                    backdrop-blur-sm
+                    transition
+                    duration-300
+                    hover:-translate-y-1
+                    hover:border-cyan-400/40
+                    hover:text-[var(--portfolio-accent)]
+                  "
+                >
+                  {badge}
+                </span>
 
-                )
-              )}
+              ))}
 
             </div>
 
-            {/* ================= BOUTONS ================= */}
+
+            {/* BOUTONS */}
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
 
+              {/* PROJETS */}
               <a
                 href="#projets"
-                className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-7 py-3 font-semibold text-black transition-all duration-300 hover:-translate-y-1 hover:bg-cyan-300 hover:shadow-lg hover:shadow-cyan-400/20 active:translate-y-0"
+                className="
+                  inline-flex
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-[var(--portfolio-accent)]
+                  px-7 py-3
+                  font-semibold
+                  text-[var(--portfolio-accent-text)]
+                  transition-all
+                  duration-300
+                  hover:-translate-y-1
+                  hover:brightness-110
+                  hover:shadow-lg
+                  hover:shadow-cyan-400/20
+                  active:translate-y-0
+                "
               >
                 {hero.primaryButtonLabel} →
               </a>
 
+
+              {/* CV */}
               <a
                 href="/documents/CV-Hardy-Gates.pdf"
                 download
-                className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-400/10 hover:text-cyan-400 hover:shadow-lg hover:shadow-cyan-400/10 active:translate-y-0"
+                className="
+                  inline-flex
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-[var(--portfolio-border)]
+                  bg-[var(--portfolio-surface)]
+                  px-7 py-3
+                  text-sm
+                  font-semibold
+                  text-[var(--portfolio-text)]
+                  backdrop-blur-sm
+                  transition-all
+                  duration-300
+                  hover:-translate-y-1
+                  hover:border-cyan-400/50
+                  hover:bg-[var(--portfolio-surface-hover)]
+                  hover:text-[var(--portfolio-accent)]
+                  hover:shadow-lg
+                  hover:shadow-cyan-400/10
+                  active:translate-y-0
+                "
               >
                 {hero.secondaryButtonLabel}
               </a>
@@ -173,36 +393,65 @@ export default async function Home() {
           </div>
 
 
-          {/* ================= PHOTO DE PROFIL ================= */}
+          {/* =================================================
+              PHOTO DE PROFIL
+              ================================================= */}
           <div className="flex justify-center md:justify-end">
 
             <div className="relative flex flex-col items-center">
 
-              {/* Halo lumineux — discret sur mobile */}
-              <div className="absolute inset-2 rounded-full bg-cyan-400/10 blur-2xl md:-inset-8 md:blur-3xl md:animate-pulse" />
+              {/* Halo */}
+              <div
+                className="
+                  absolute
+                  inset-2
+                  rounded-full
+                  bg-cyan-400/10
+                  blur-2xl
+                  md:-inset-8
+                  md:animate-pulse
+                  md:blur-3xl
+                "
+              />
 
-              {/* Cercle décoratif supplémentaire — uniquement sur ordinateur */}
-              <div className="absolute -inset-3 hidden rounded-full border border-cyan-400/10 md:block" />
+
+              {/* Cercle décoratif desktop */}
+              <div
+                className="
+                  absolute
+                  -inset-3
+                  hidden
+                  rounded-full
+                  border
+                  border-cyan-400/10
+                  md:block
+                "
+              />
+
 
               {/* PHOTO */}
               <div
                 className="
-        relative
-        h-64 w-64
-        overflow-hidden
-        rounded-full
-        border border-cyan-400/30
-        shadow-[0_0_45px_rgba(34,211,238,0.12)]
-        transition duration-500
-        hover:border-cyan-400/60
+                  relative
+                  h-64 w-64
+                  overflow-hidden
+                  rounded-full
+                  border
+                  border-cyan-400/30
+                  shadow-[0_0_45px_rgba(34,211,238,0.12)]
+                  transition
+                  duration-500
+                  hover:border-cyan-400/60
 
-        sm:h-72 sm:w-72
+                  sm:h-72
+                  sm:w-72
 
-        md:h-[420px] md:w-[420px]
-        md:shadow-[0_0_80px_rgba(34,211,238,0.15)]
-        md:hover:scale-[1.02]
-        md:hover:shadow-[0_0_100px_rgba(34,211,238,0.25)]
-      "
+                  md:h-[420px]
+                  md:w-[420px]
+                  md:shadow-[0_0_80px_rgba(34,211,238,0.15)]
+                  md:hover:scale-[1.02]
+                  md:hover:shadow-[0_0_100px_rgba(34,211,238,0.25)]
+                "
               >
                 <Image
                   src="/images/profile/hardy.jpg"
@@ -214,121 +463,138 @@ export default async function Home() {
                 />
               </div>
 
+
               {/* BADGE */}
-              <div
-                className="
-        relative z-10
-        mt-4
-        max-w-[92vw]
-        rounded-full
-        border border-white/10
-        bg-black/90
-        px-4 py-2
-        text-center
-        text-[10px]
-        font-medium
-        leading-5
-        text-cyan-400
-        shadow-xl
-        backdrop-blur-xl
+              {hero.profileBadge && (
 
-        sm:text-xs
+                <div
+                  className="
+                    relative z-10
+                    mt-4
+                    max-w-[92vw]
+                    rounded-full
+                    border
+                    border-[var(--portfolio-border)]
+                    bg-[var(--portfolio-badge-bg)]
+                    px-4 py-2
+                    text-center
+                    text-[10px]
+                    font-medium
+                    leading-5
+                    text-[var(--portfolio-accent)]
+                    shadow-xl
+                    backdrop-blur-xl
 
-        md:absolute
-        md:-bottom-5
-        md:left-1/2
-        md:mt-0
-        md:-translate-x-1/2
-        md:whitespace-nowrap
-        md:px-5
-      "
-              >
-                {hero.profileBadge && (
-                  <div className="relative z-10
-        mt-4
-        max-w-[92vw]
-        rounded-full
-        border border-white/10
-        bg-black/90
-        px-4 py-2
-        text-center
-        text-[10px]
-        font-medium
-        leading-5
-        text-cyan-400
-        shadow-xl
-        backdrop-blur-xl
+                    sm:text-xs
 
-        sm:text-xs
+                    md:absolute
+                    md:-bottom-5
+                    md:left-1/2
+                    md:mt-0
+                    md:-translate-x-1/2
+                    md:whitespace-nowrap
+                    md:px-5
+                  "
+                >
+                  {hero.profileBadge}
+                </div>
 
-        md:absolute
-        md:-bottom-5
-        md:left-1/2
-        md:mt-0
-        md:-translate-x-1/2
-        md:whitespace-nowrap
-        md:px-5">
-                    {hero.profileBadge}
-                  </div>
-                )}
-              </div>
+              )}
 
             </div>
 
           </div>
 
         </div>
-
       </section>
 
 
-      {/* À PROPOS */}
+      {/* =====================================================
+          À PROPOS
+          ===================================================== */}
       <section
         id="apropos"
-        className="border-t border-white/10 px-6 py-24"
+        className="
+          border-t
+          border-[var(--portfolio-border)]
+          px-6
+          py-24
+        "
       >
+
         <div className="mx-auto max-w-7xl">
 
-          {/* En-tête */}
+          {/* EN-TÊTE */}
           <div className="max-w-3xl">
 
-            <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">
+            <p
+              className="
+                text-sm
+                uppercase
+                tracking-[0.3em]
+                text-[var(--portfolio-accent)]
+              "
+            >
               {about.eyebrow}
             </p>
 
+
             <h2 className="mt-3 text-4xl font-bold md:text-5xl">
+
               {about.titleLine1} {about.titleLine2}
+
               <br />
-              <span className="text-cyan-400">
+
+              <span className="text-[var(--portfolio-accent)]">
                 {about.titleAccent}
               </span>
+
             </h2>
 
           </div>
 
 
-          {/* Contenu */}
+          {/* CONTENU */}
           <div className="mt-14 grid gap-12 md:grid-cols-2">
 
-            {/* Présentation */}
+            {/* PRÉSENTATION */}
             <div>
 
-              <p className="text-lg leading-8 text-gray-300">
+              <p
+                className="
+                  text-lg
+                  leading-8
+                  text-[var(--portfolio-text-secondary)]
+                "
+              >
                 {about.description}
               </p>
 
 
               {about.secondaryDescription && (
 
-                <p className="mt-6 leading-8 text-gray-400">
+                <p
+                  className="
+                    mt-6
+                    leading-8
+                    text-[var(--portfolio-muted)]
+                  "
+                >
                   {about.secondaryDescription}
                 </p>
 
               )}
 
+
               {about.thirdDescription && (
 
-                <p className="mt-6 leading-8 text-gray-400">
+                <p
+                  className="
+                    mt-6
+                    leading-8
+                    text-[var(--portfolio-muted)]
+                  "
+                >
                   {about.thirdDescription}
                 </p>
 
@@ -337,13 +603,26 @@ export default async function Home() {
             </div>
 
 
-            {/* Informations */}
+            {/* INFORMATIONS */}
             <div className="grid gap-4 sm:grid-cols-2">
 
-              {/* Carte 1 */}
-              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40">
+              {/* CARTE 1 */}
+              <div
+                className="
+                  rounded-2xl
+                  border
+                  border-[var(--portfolio-border)]
+                  bg-[var(--portfolio-surface)]
+                  p-6
+                  transition
+                  duration-300
+                  hover:-translate-y-1
+                  hover:border-cyan-400/40
+                  hover:bg-[var(--portfolio-surface-hover)]
+                "
+              >
 
-                <div className="text-2xl text-cyan-400">
+                <div className="text-2xl text-[var(--portfolio-accent)]">
                   ⚡
                 </div>
 
@@ -351,7 +630,14 @@ export default async function Home() {
                   Électronique
                 </h3>
 
-                <p className="mt-3 text-sm leading-6 text-gray-500">
+                <p
+                  className="
+                    mt-3
+                    text-sm
+                    leading-6
+                    text-[var(--portfolio-muted)]
+                  "
+                >
                   Conception et expérimentation autour des circuits et systèmes
                   électroniques.
                 </p>
@@ -359,10 +645,23 @@ export default async function Home() {
               </div>
 
 
-              {/* Carte 2 */}
-              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40">
+              {/* CARTE 2 */}
+              <div
+                className="
+                  rounded-2xl
+                  border
+                  border-[var(--portfolio-border)]
+                  bg-[var(--portfolio-surface)]
+                  p-6
+                  transition
+                  duration-300
+                  hover:-translate-y-1
+                  hover:border-cyan-400/40
+                  hover:bg-[var(--portfolio-surface-hover)]
+                "
+              >
 
-                <div className="text-2xl text-cyan-400">
+                <div className="text-2xl text-[var(--portfolio-accent)]">
                   ◈
                 </div>
 
@@ -370,17 +669,37 @@ export default async function Home() {
                   Systèmes embarqués
                 </h3>
 
-                <p className="mt-3 text-sm leading-6 text-gray-500">
+                <p
+                  className="
+                    mt-3
+                    text-sm
+                    leading-6
+                    text-[var(--portfolio-muted)]
+                  "
+                >
                   Microcontrôleurs, capteurs, actionneurs et systèmes intelligents.
                 </p>
 
               </div>
 
 
-              {/* Carte 3 */}
-              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40">
+              {/* CARTE 3 */}
+              <div
+                className="
+                  rounded-2xl
+                  border
+                  border-[var(--portfolio-border)]
+                  bg-[var(--portfolio-surface)]
+                  p-6
+                  transition
+                  duration-300
+                  hover:-translate-y-1
+                  hover:border-cyan-400/40
+                  hover:bg-[var(--portfolio-surface-hover)]
+                "
+              >
 
-                <div className="text-2xl text-cyan-400">
+                <div className="text-2xl text-[var(--portfolio-accent)]">
                   ◎
                 </div>
 
@@ -388,7 +707,14 @@ export default async function Home() {
                   IoT
                 </h3>
 
-                <p className="mt-3 text-sm leading-6 text-gray-500">
+                <p
+                  className="
+                    mt-3
+                    text-sm
+                    leading-6
+                    text-[var(--portfolio-muted)]
+                  "
+                >
                   Objets connectés, acquisition de données, communication et
                   supervision.
                 </p>
@@ -396,10 +722,23 @@ export default async function Home() {
               </div>
 
 
-              {/* Carte 4 */}
-              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40">
+              {/* CARTE 4 */}
+              <div
+                className="
+                  rounded-2xl
+                  border
+                  border-[var(--portfolio-border)]
+                  bg-[var(--portfolio-surface)]
+                  p-6
+                  transition
+                  duration-300
+                  hover:-translate-y-1
+                  hover:border-cyan-400/40
+                  hover:bg-[var(--portfolio-surface-hover)]
+                "
+              >
 
-                <div className="text-2xl text-cyan-400">
+                <div className="text-2xl text-[var(--portfolio-accent)]">
                   ⚙
                 </div>
 
@@ -407,7 +746,14 @@ export default async function Home() {
                   Automatisation
                 </h3>
 
-                <p className="mt-3 text-sm leading-6 text-gray-500">
+                <p
+                  className="
+                    mt-3
+                    text-sm
+                    leading-6
+                    text-[var(--portfolio-muted)]
+                  "
+                >
                   Commande, contrôle et développement de systèmes automatisés.
                 </p>
 
@@ -418,18 +764,55 @@ export default async function Home() {
           </div>
 
 
-          {/* Citation / philosophie */}
-          <div className="mt-16 rounded-2xl border border-cyan-400/10 bg-cyan-400/[0.03] p-8 md:p-10">
+          {/* =================================================
+              CITATION / PHILOSOPHIE
+              ================================================= */}
+          <div
+            className="
+              mt-16
+              rounded-2xl
+              border
+              border-cyan-400/10
+              bg-cyan-400/[0.03]
+              p-8
+              md:p-10
+            "
+          >
 
-            <p className="text-xl font-medium leading-8 text-gray-200 md:text-2xl">
+            <p
+              className="
+                text-xl
+                font-medium
+                leading-8
+                text-[var(--portfolio-text-secondary)]
+                md:text-2xl
+              "
+            >
               « Je ne veux pas seulement utiliser la technologie.
               Je veux comprendre comment elle fonctionne,
               la concevoir et créer des solutions avec elle. »
             </p>
 
-            <div className="mt-5 h-px w-16 bg-cyan-400" />
 
-            <p className="mt-4 text-sm uppercase tracking-[0.2em] text-gray-500">
+            <div
+              className="
+                mt-5
+                h-px
+                w-16
+                bg-[var(--portfolio-accent)]
+              "
+            />
+
+
+            <p
+              className="
+                mt-4
+                text-sm
+                uppercase
+                tracking-[0.2em]
+                text-[var(--portfolio-muted)]
+              "
+            >
               Engineering mindset
             </p>
 
@@ -438,51 +821,96 @@ export default async function Home() {
         </div>
       </section>
 
+
+      {/* =====================================================
+          COMPÉTENCES
+          ===================================================== */}
       <Skills
         categories={skillCategories}
       />
 
 
-      {/* PROJETS - PLACEHOLDER POUR L'INSTANT */}
+      {/* =====================================================
+          PROJETS
+          ===================================================== */}
       <Projects />
+
+
+      {/* =====================================================
+          EXPÉRIENCES
+          ===================================================== */}
       <Experience
         experiences={experiences}
       />
-      <Contact settings={contactSettings} />
 
-      {/* FOOTER */}
+
+      {/* =====================================================
+          CONTACT
+          ===================================================== */}
+      <Contact
+        settings={contactSettings}
+      />
+
+
+      {/* ================= FOOTER ================= */}
       <footer
-        className="border-t border-white/10 px-6 py-12"
+        className="
+    border-t
+    border-[var(--portfolio-border)]
+    px-6
+    py-12
+  "
       >
-
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 md:flex-row">
-
+        <div
+          className="
+      mx-auto
+      flex
+      max-w-7xl
+      flex-col
+      justify-between
+      gap-6
+      md:flex-row
+      md:items-end
+    "
+        >
           <div>
 
-            <div className="text-xl font-bold">
-
+            <div
+              className="
+          text-xl
+          font-bold
+          text-[var(--portfolio-text)]
+        "
+            >
               {globalSettings.brand}
 
-              <span className="text-cyan-400">
+              <span className="text-[var(--portfolio-accent)]">
                 .
               </span>
-
             </div>
 
-
-            <p className="mt-2 text-sm text-gray-500">
+            <p
+              className="
+          mt-2
+          text-sm
+          text-[var(--portfolio-muted)]
+        "
+            >
               {globalSettings.tagline}
             </p>
 
           </div>
 
-
-          <p className="text-sm text-gray-600">
+          <p
+            className="
+        text-sm
+        text-[var(--portfolio-muted)]
+      "
+          >
             {globalSettings.footerCopyright}
           </p>
 
         </div>
-
       </footer>
 
     </main>

@@ -1,37 +1,159 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+/* =========================================
+   PORTFOLIO THEME
+   ========================================= */
+
+:root,
+html[data-theme="dark"] {
+  --portfolio-bg: #05070a;
+  --portfolio-bg-secondary: #080b0e;
+
+  --portfolio-nav-bg: rgba(5, 7, 10, 0.84);
+
+  --portfolio-surface: rgba(255, 255, 255, 0.025);
+  --portfolio-surface-hover: rgba(255, 255, 255, 0.05);
+
+  --portfolio-text: #ffffff;
+  --portfolio-text-secondary: #d1d5db;
+  --portfolio-muted: #6b7280;
+
+  --portfolio-border: rgba(255, 255, 255, 0.10);
+  --portfolio-grid: rgba(255, 255, 255, 0.055);
+
+  --portfolio-badge-bg: rgba(0, 0, 0, 0.90);
+
+  --portfolio-accent: #22d3ee;
+  --portfolio-accent-text: #020617;
+
+  --background: var(--portfolio-bg);
+  --foreground: var(--portfolio-text);
+
+  color-scheme: dark;
 }
+
+
+html[data-theme="light"] {
+  --portfolio-bg: #f7f8fa;
+  --portfolio-bg-secondary: #ffffff;
+
+  --portfolio-nav-bg: rgba(247, 248, 250, 0.88);
+
+  --portfolio-surface: #ffffff;
+  --portfolio-surface-hover: #f1f5f9;
+
+  --portfolio-text: #111827;
+  --portfolio-text-secondary: #374151;
+  --portfolio-muted: #64748b;
+
+  --portfolio-border: rgba(15, 23, 42, 0.12);
+  --portfolio-grid: rgba(15, 23, 42, 0.055);
+
+  --portfolio-badge-bg: rgba(255, 255, 255, 0.92);
+
+  --portfolio-accent: #0891b2;
+  --portfolio-accent-text: #ffffff;
+
+  --background: var(--portfolio-bg);
+  --foreground: var(--portfolio-text);
+
+  color-scheme: light;
+}
+
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* =========================================
+   BASE
+   ========================================= */
 
 html {
   scroll-behavior: smooth;
+
+  background:
+    var(--portfolio-bg);
 }
 
+
 body {
+  margin: 0;
+
   overflow-x: hidden;
+
+  background:
+    var(--portfolio-bg);
+
+  color:
+    var(--portfolio-text);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
 }
+
+
+/* =========================================
+   HERO GRID
+   ========================================= */
+
+.portfolio-grid {
+  background-image:
+    linear-gradient(
+      var(--portfolio-grid) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      var(--portfolio-grid) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    48px 48px;
+}
+
+
+/* =========================================
+   THEME TOGGLE
+   ========================================= */
+
+.theme-toggle {
+  border-color:
+    var(--portfolio-border);
+
+  background:
+    var(--portfolio-surface);
+
+  color:
+    var(--portfolio-text-secondary);
+}
+
+
+.theme-toggle:hover {
+  border-color:
+    var(--portfolio-accent);
+
+  color:
+    var(--portfolio-accent);
+}
+
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
 
 @keyframes fadeUp {
   from {
@@ -45,9 +167,12 @@ body {
   }
 }
 
+
 .animate-fade-up {
-  animation: fadeUp 0.8s ease-out both;
+  animation:
+    fadeUp 0.8s ease-out both;
 }
+
 
 @keyframes fadeIn {
   from {
@@ -59,6 +184,8 @@ body {
   }
 }
 
+
 .animate-fade-in {
-  animation: fadeIn 1s ease-out both;
+  animation:
+    fadeIn 1s ease-out both;
 }

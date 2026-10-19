@@ -101,8 +101,36 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+
+      <head>
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+        try {
+          const savedTheme =
+            localStorage.getItem("portfolio-theme");
+
+          const theme =
+            savedTheme === "light"
+              ? "light"
+              : "dark";
+
+          document.documentElement.dataset.theme =
+            theme;
+        } catch (_) {
+          document.documentElement.dataset.theme =
+            "dark";
+        }
+      `,
+          }}
+        />
+
+      </head>
+
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
